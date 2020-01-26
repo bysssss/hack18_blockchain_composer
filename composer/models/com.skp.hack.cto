@@ -1,0 +1,46 @@
+namespace com.skp.hack
+
+participant Farmer identified by participantId {
+  o String participantId
+  o String name
+}
+
+participant Broker identified by participantId {
+  o String participantId
+  o String name
+}
+
+participant Restaurant identified by participantId {
+  o String participantId
+  o String name
+}
+
+asset Cow identified by assetId {
+  o String assetId
+  o String value
+  --> Farmer farmer
+  --> Broker broker
+}
+
+asset Beef identified by assetId {
+  o String assetId
+  o String value
+  --> Broker broker
+  --> Restaurant restaurant
+}
+
+transaction Auction {
+  --> Cow cow
+  --> Broker broker
+}
+
+transaction Trade {
+  --> Beef beef
+  --> Restaurant restaurant
+}
+
+event CewEvent {
+  --> Cow cow
+  o String oldValue
+  o String newValue
+}
